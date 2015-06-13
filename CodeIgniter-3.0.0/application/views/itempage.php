@@ -6,8 +6,10 @@
 	<body>
 		<div class="container">
 			<div class="row" style='text-align:right'>
-				<a href='/dashboard'>Home</a>
-				<a href='/logout'>Log out</a>
+				<div class='section'>
+					<a href='/dashboard'>Home</a>
+					<a href='/logout' style='margin-left:4%'>Log out</a>
+				</div>
 			</div>
 		</div>
 		<div class="container">
@@ -17,10 +19,10 @@
 		</div>
 		<div class="container">
 			<div class="row">
-				<h5>Users who added this item to wishlist:</h5>
+				<h4>Users who added this item to their wishlist:</h4>
 				<div class="col s4">
 					<?php foreach($wishedby as $wished): ?>
-						<p><?=$wished['name']?></p>
+						<h5><?=$wished['name']?></h5>
 					<?php endforeach; ?>
 				</div>
 			</div>

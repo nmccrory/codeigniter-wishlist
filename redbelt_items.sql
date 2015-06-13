@@ -1,0 +1,58 @@
+CREATE DATABASE  IF NOT EXISTS `redbelt` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `redbelt`;
+-- MySQL dump 10.13  Distrib 5.6.22, for osx10.8 (x86_64)
+--
+-- Host: 127.0.0.1    Database: redbelt
+-- ------------------------------------------------------
+-- Server version	5.5.42
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `items`
+--
+
+DROP TABLE IF EXISTS `items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `item_name` varchar(75) DEFAULT NULL,
+  `added_by` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id__idx` (`added_by`),
+  CONSTRAINT `id_` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `items`
+--
+
+LOCK TABLES `items` WRITE;
+/*!40000 ALTER TABLE `items` DISABLE KEYS */;
+INSERT INTO `items` VALUES (1,'Nike Free 5',1,'2015-06-12 10:20:37','2015-06-12 10:20:37'),(3,'Ballpoint pen',10,'2015-06-12 10:40:38','2015-06-12 10:40:38'),(4,NULL,NULL,'2015-06-12 10:57:23','2015-06-12 10:57:23'),(7,'Lamborghini Aventador',15,'2015-06-12 11:48:19','2015-06-12 11:48:19'),(9,'Carbon Fiber Spoon',15,'2015-06-12 12:42:09','2015-06-12 12:42:09'),(10,'Industrial Oven',1,'2015-06-12 12:44:21','2015-06-12 12:44:21'),(11,'iPhone 6',16,'2015-06-12 12:45:11','2015-06-12 12:45:11'),(12,'Tesla Electric Turbo-Boost Broom',16,'2015-06-12 12:45:42','2015-06-12 12:45:42'),(17,'Scooby Snacks',14,'2015-06-12 13:46:27','2015-06-12 13:46:27');
+/*!40000 ALTER TABLE `items` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-06-12 13:49:10

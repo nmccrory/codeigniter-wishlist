@@ -21,6 +21,7 @@ class Processes extends CI_Controller {
 			}
 		}else{
 			$this->session->set_flashdata('errors', validation_errors());
+			$this->load->view('main',$this->session->flashdata('errors'));
 		}
 	}
 	//add redirect route on success
@@ -30,8 +31,8 @@ class Processes extends CI_Controller {
 			$this->session->set_userdata('logged_user', $this->process->validateLog($this->input->post()));
 			redirect('/dashboard');
 		}else{
-			$this->session->set_flashdata('errors', 'Wrong username or password');
-			$this->load->view('main', $this->session->flashdata('errors'));
+			$this->session->set_flashdata('login_errors', 'Wrong username or password');
+			$this->load->view('main', $this->session->flashdata('login_errors'));
 		}
 	}
 
@@ -42,7 +43,7 @@ class Processes extends CI_Controller {
 
 	public function showDashboard(){
 		$this->load->model('process');
-		$this->load->view('dashboard', array('user'=>$this->process->getUserbyId($this->session->userdata('logged_user')['id']), 'wishlist'=>$this->process->getWishesbyId($this->session->userdata('logged_user')['id']), 'otherswishes'=>$this->process->getAllWishes()));
+		$this->load->view('dashboard', array('user'=>$this->process->getUserbyId($this->session->userdata('logged_user')['id']), 'wishlist'=>$this->process->getWishesbyId($this->session->userdata('logged_user')['id']), 'otherswishes'=>$this->process->getAllWishes($this->session->userdata('logged_user')['id'])));
 	}
 	public function addtoWishlist($item_id){
 		$this->load->model('process');
@@ -54,8 +55,12 @@ class Processes extends CI_Controller {
 	}
 	public function addItem(){
 		$this->load->model('process');
-		$this->process->addItem($this->input->post());
-		redirect('/dashboard');
+		if($this->process->validateAddition($this->input->post()) === FALSE){
+			$this->session->set_flashdata('errors', validation_errors());
+			$this->load->view('create',$this->session->flashdata('errors'));
+		}else{
+			redirect('/dashboard');
+		}
 	}
 
 	public function viewItem($item_id){

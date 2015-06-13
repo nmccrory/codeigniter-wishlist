@@ -59,8 +59,8 @@ class Process extends CI_Model{
 		return $this->db->query($query)->row_array();
 	}
 
-	public function getAllWishes(){
-		$query = "SELECT item_name, users.name, items.created_at, items.id, added_by FROM items JOIN users ON items.added_by = users.id  ORDER BY items.created_at DESC LIMIT 5";
+	public function getAllWishes($user_id){
+		$query = "SELECT item_name, users.name, items.created_at, items.id, added_by FROM items JOIN users ON items.added_by = users.id  WHERE items.id NOT IN (SELECT item_id FROM wishlists WHERE user_id = $user_id) ORDER BY items.created_at DESC";
 		return $this->db->query($query)->result_array();
 	}
 	public function getWishesbyId($id){
@@ -74,6 +74,16 @@ class Process extends CI_Model{
 		$this->db->query($query, $values);
 	}
 
+	public function validateAddition($post){
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('item', "Item", 'required|min_length[3]');
+		
+		if($this->form_validation->run() === FALSE){
+			return FALSE;
+		}else{
+			$this->addItem($post);
+		}
+	}
 	public function addItem($post){
 		$query = "INSERT INTO items (item_name, added_by, created_at, updated_at) VALUES (?,?,NOW(),NOW())";
 		$values = array($post['item'], $post['user_id']);

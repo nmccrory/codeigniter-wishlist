@@ -6,12 +6,14 @@
 	<body>
 		<div class="container">
 			<div class="row" style='text-align:right'>
-				<a href='/logout'>Log out</a>
+				<div class='section'>
+					<a href='/logout'>Log out</a>
+				</div>
 			</div>
 		</div>
 		<div class="container">
 			<div class="row">
-				<h3>Hello, <?=$this->session->userdata('logged_user')['name']?></h3>
+				<h3>Hello, <?=$this->session->userdata('logged_user')['name']?>!</h3>
 			</div>
 		</div>
 		<div class="container">
@@ -29,7 +31,8 @@
 						<tr>
 							<td><a href=<?php echo "/wish_items/{$wishes['item_id']}"?>><?=$wishes['item_name']?></a></td>
 							<td><?=$wishes['name']?></td>
-							<td><?=$wishes['created_at']?></td>
+							<td><?php $date = date_create($wishes['created_at']);
+							echo date_format($date, 'F j Y');?></td>
 							<?php if($wishes['added_by'] == $this->session->userdata('logged_user')['id']):?>
 								<td><a href=<?php echo "/delete/{$wishes['item_id']}"?>>Delete</a></td>
 							<?php else: ?>
@@ -52,12 +55,13 @@
 						<th>Action</th>
 					</thead>
 					<tbody>
-					<?php foreach($otherswishes as $otherwishes): ?>
+					<?php foreach($otherswishes as $otherwish): ?>
 						<tr>
-							<td><a href=<?php echo "/wish_items/{$otherwishes['id']}"?>><?=$otherwishes['item_name']?></a></td>
-							<td><?=$otherwishes['name']?></td>
-							<td><?=$otherwishes['created_at']?></td>
-							<td><a href=<?php echo "/addtowishlist/{$otherwishes['id']}"?>>Add to my wishlist</a></td>
+							<td><a href=<?php echo "/wish_items/{$otherwish['id']}"?>><?=$otherwish['item_name']?></a></td>
+							<td><?=$otherwish['name']?></td>
+							<td><?php $date = date_create($otherwish['created_at']);
+							echo date_format($date, 'F j Y');?></td>
+							<td><a href=<?php echo "/addtowishlist/{$otherwish['id']}"?>>Add to my wishlist</a></td>
 						</tr>
 					<?php endforeach; ?>
 					</tbody>

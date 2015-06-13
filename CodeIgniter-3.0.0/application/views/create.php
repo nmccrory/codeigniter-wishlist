@@ -6,8 +6,10 @@
 	<body>
 		<div class="container">
 			<div class="row" style='text-align:right'>
-				<a href='/dashboard'>Home</a>
-				<a href='/logout'>Log out</a>
+				<div class='section'>
+					<a href='/dashboard'>Home</a>
+					<a href='/logout' style='margin-left:4%'>Log out</a>
+				</div>
 			</div>
 		</div>
 		<div class="container">
@@ -15,6 +17,7 @@
 		</div>
 		<div class="container">
 			<div class="row">
+				<p><?=$this->session->flashdata('errors')?></p>
 				<div class="col s6">
 					<form action="/add" method='post'>
 						Item/Product <input type="text" name='item'>
